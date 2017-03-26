@@ -1,14 +1,16 @@
 <html>
     <head>
         <title>Image recognition demo</title>
+        <link rel="stylesheet" href="css/styles.css" />
     </head>
     <body>
-        <video id="video" autoplay style="display: none"></video>
-        <canvas id="canvas"></canvas>
-        </br>
-        <span id="text" style="font-size: 30px"></span>
+        <div id="container">
+            <div id="video-overlay"></div>
+            <video id="video" autoplay></video>
+            <canvas id="canvas"></canvas>                
+        </div>
+       
         <script type="text/javascript" src="js/ocrad.js"></script>
         <script type="text/javascript" src="js/recognition.js"></script>
-        <span id="text"></span>
     </body>
 </html>
