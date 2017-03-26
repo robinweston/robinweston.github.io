@@ -1,6 +1,5 @@
 var canvas = document.getElementById('canvas');
 var video = document.getElementById('video');
-var text = document.getElementById('text');
 var ctx = canvas.getContext('2d');
 var overlay = document.getElementById('video-overlay');
 
@@ -33,6 +32,10 @@ function videoSuccess(stream) {
 
 function videoFailure() {
     alert('video failed');
+}
+
+window.onerror = function(msg, url, line, col, error) {
+    overlay.innerHTML = msg;
 }
 
 navigator.getUserMedia_ = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
