@@ -1,43 +1,41 @@
 var canvas = document.getElementById('canvas');
-var video = document.getElementById('video');
-var ctx = canvas.getContext('2d');
-var overlay = document.getElementById('video-overlay');
+var signaturePad = new SignaturePad(canvas);
+var wrapper = document.getElementById("signature-pad");
+var clearButton = wrapper.querySelector("[data-action=clear]");
+var recogniseButton = wrapper.querySelector("[data-action=recognise]");
+var description = document.getElementById("description");
+var signaturePad = new SignaturePad(canvas, {
+    minWidth: 2,
+    backgroundColor: "rgb(255,255,255)",
+});
+var context = canvas.getContext("2d");
 
-function recogniseText(){
-    console.log('[' + video.videoWidth + ', ' + video.videoHeight + ']');
-    if(video.videoWidth === 0 || video.videoHeight === 0) {
-        return;
+function recogniseText() {
+    var string = OCRAD(context);
+
+
+    description.innerHTML = string;
+}
+
+function resizeCanvas() {
+    var ratio = Math.max(window.devicePixelRatio || 1, 1);
+    canvas.width = canvas.offsetWidth * ratio;
+    canvas.height = canvas.offsetHeight * ratio;
+    context.scale(ratio, ratio);
+    signaturePad.clear();
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+clearButton.addEventListener("click", function (event) {
+    signaturePad.clear();
+});
+
+recogniseButton.addEventListener("click", function (event) {
+    if (signaturePad.isEmpty()) {
+        alert("Please provide signature first.");
+    } else {
+        recogniseText();
     }
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    ctx.drawImage(video, 0, 0, canvas.clientWidth, canvas.clientHeight);
-    var string = OCRAD(ctx);
-    overlay.innerHTML = string;
-}
-
-function timerCallback() {
-    recogniseText();
-
-    setTimeout(function() {
-        timerCallback();
-    }, 100);
-};
-
-function videoSuccess(stream) {
-    var domURL = window.URL || window.webkitURL;
-	//start streaming via the video element
-	video.src = domURL ? domURL.createObjectURL(stream) : stream;
-    timerCallback();
-}
-
-function videoFailure() {
-    alert('video failed');
-}
-
-window.onerror = function(msg, url, line, col, error) {
-    overlay.innerHTML = msg;
-}
-
-navigator.getUserMedia_ = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-//Get the API according to the browser.
-navigator.getUserMedia_({ video: true, audio: false }, videoSuccess, videoFailure);
+});
