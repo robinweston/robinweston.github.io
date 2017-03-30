@@ -12,9 +12,7 @@ var context = canvas.getContext("2d");
 
 function recogniseText() {
     var string = OCRAD(context);
-
-
-    description.innerHTML = string;
+    alert(string);
 }
 
 function resizeCanvas() {
