@@ -5,7 +5,7 @@ var clearButton = wrapper.querySelector("[data-action=clear]");
 var recogniseButton = wrapper.querySelector("[data-action=recognise]");
 var description = document.getElementById("description");
 var signaturePad = new SignaturePad(canvas, {
-    minWidth: 2,
+    minWidth: 5,
     backgroundColor: "rgb(255,255,255)",
 });
 var context = canvas.getContext("2d");
