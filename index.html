@@ -1,31 +1,24 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-    <title>Image recognition demo</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <title>Kirby 360 Demo</title>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
 </head>
 
 <body>
-
-    <div id="signature-pad" class="m-signature-pad">
-        <div class="m-signature-pad--body">
-            <canvas id="canvas"></canvas>
-        </div>
-        <div class="m-signature-pad--footer">
-            <div id="description" class="description">Sign above</div>
-            <div class="left">
-                <button type="button" class="button clear" data-action="clear">Clear</button>
-            </div>
-            <div class="right">
-                <button type="button" class="button save" data-action="recognise">Recognise</button>
-            </div>
-        </div>
-    </div>
-
-
-    <script type="text/javascript" src="js/ocrad.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
-    <script type="text/javascript" src="js/recognition.js"></script>
+    <div id="vrview" style="text-align:center">
+        <script src="//storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
+        <script type="text/javascript">
+            window.addEventListener('load', onVrViewLoad)
+            function onVrViewLoad() {
+                var vrView = new VRView.Player('#vrview', {
+                    image: '360Test.vr-converted.jpg',
+                    is_stereo: true,
+                });
+            }
+        </script>
 </body>
 
 </html>
